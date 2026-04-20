@@ -27,6 +27,7 @@ Control Tuya-based smart devices locally over LAN through Apple HomeKit.
 | `FanLight`              | Fan + Light        | Combined fan with lightbulb                               |
 | `GarageDoor`            | Garage             | Garage door opener with state tracking                    |
 | `MappedHeatPumpHeater`  | Climate            | Heat pump with virtual room-to-water temperature mapping  |
+| `MotorizedHatch`        | Garage             | Two-relay hold-to-run motor (trapdoor / skylight)         |
 | `MultiOutlet`           | Outlet             | Multi-outlet with debounced power switching               |
 | `OilDiffuser`           | Humidifier + Light | Oil diffuser with humidifier and RGB light                |
 | `Outlet`                | Outlet             | Single outlet with optional energy monitoring             |

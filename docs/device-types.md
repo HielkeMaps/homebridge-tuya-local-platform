@@ -18,6 +18,7 @@ If you are looking for verified configurations for your specific device, see the
 | Smart Fan with Light                 |       `FanLight`        | Fan with speeds, direction, and built-in light ([details](#smart-fan-with-light))                       |
 | Garage Door                          |      `GarageDoor`       | Smart garage doors or garage door openers ([details](#garage-doors))                                    |
 | Mapped Heat Pump Heater              | `MappedHeatPumpHeater`  | Heat pump with room-to-water temp mapping ([details](#mapped-heat-pump-heaters))                        |
+| Motorized Hatch / Trapdoor           |    `MotorizedHatch`     | Two-relay hold-to-run motor exposed as a garage door ([details](#motorized-hatch))                      |
 | Smart Power Strip                    |      `MultiOutlet`      | Power strips with sequential data-points for individual outlet control ([details](#smart-power-strips)) |
 | Oil Diffuser                         |      `OilDiffuser`      | Essential oil diffuser with humidifier and RGB light ([details](#oil-diffusers))                        |
 | Smart Plug                           |        `Outlet`         | Smart plugs that turn on and off ([details](#outlets))                                                  |
@@ -414,6 +415,39 @@ If your garage door or garage door opener does more than just open and close (e.
   flipState: true,
 }
 ```
+
+### Motorized Hatch
+
+Intended for motorized trapdoors, skylights, and similar installations driven by a **dumb 2-gang Tuya switch** (category `tdq`) wired to a hold-to-run motor. One relay runs the motor in the open direction, the other runs it closed; neither the Tuya module nor the motor reports position back.
+
+The plugin exposes the device as a HomeKit `GarageDoorOpener`, so Siri recognises "open" / "close" voice commands. Because there is no real position feedback, state is synthesized in memory from a timer: when you ask it to open, the open relay energises for `openDurationMs`, then the plugin turns it off and marks the door as open.
+
+::: warning State can drift
+State is a best-effort simulation. If the motor stalls, someone operates it manually, or Homebridge restarts mid-travel, HomeKit's notion of "open" vs "closed" may not match reality until you command it again.
+:::
+
+```json5
+{
+  name: 'My Hatch',
+  type: 'MotorizedHatch',
+  id: '032000123456789abcde',
+  key: '0123456789abcdef',
+
+  /* DP for the relay that drives the motor open. Defaults to 1. */
+  openDp: 1,
+
+  /* DP for the relay that drives the motor closed. Defaults to 2. */
+  closeDp: 2,
+
+  /* How long to energize the open relay for one full open-from-closed travel, in ms. */
+  openDurationMs: 30000,
+
+  /* How long to energize the close relay. Defaults to openDurationMs. */
+  closeDurationMs: 30000,
+}
+```
+
+If your Tuya module exposes an **interlock** flag (common DP name `switch_interlock`) that prevents both relays from being on at once, we recommend enabling it in the Tuya app before using this accessory. The plugin already turns the opposing relay off before energising the active one, but the hardware interlock is a valuable extra safety net against a brief overlap.
 
 ### Simple Blinds
 

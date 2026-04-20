@@ -76,6 +76,10 @@
                   "enum": ["GarageDoor"]
                 },
                 {
+                  "title": "Motorized Hatch / Trapdoor (2-relay hold-to-run)",
+                  "enum": ["MotorizedHatch"]
+                },
+                {
                   "title": "Simple Blinds",
                   "enum": ["SimpleBlinds"]
                 },
@@ -815,6 +819,42 @@
               "type": "boolean",
               "condition": {
                 "functionBody": "return model.devices && model.devices[arrayIndices] && ['GarageDoor','SimpleBlinds'].includes(model.devices[arrayIndices].type);"
+              }
+            },
+            "openDp": {
+              "type": "integer",
+              "title": "Open DP",
+              "description": "DataPoint for the relay that drives the motor in the opening direction.",
+              "placeholder": "1",
+              "condition": {
+                "functionBody": "return model.devices && model.devices[arrayIndices] && ['MotorizedHatch'].includes(model.devices[arrayIndices].type);"
+              }
+            },
+            "closeDp": {
+              "type": "integer",
+              "title": "Close DP",
+              "description": "DataPoint for the relay that drives the motor in the closing direction.",
+              "placeholder": "2",
+              "condition": {
+                "functionBody": "return model.devices && model.devices[arrayIndices] && ['MotorizedHatch'].includes(model.devices[arrayIndices].type);"
+              }
+            },
+            "openDurationMs": {
+              "type": "integer",
+              "title": "Open Duration (ms)",
+              "description": "How long to energize the open relay for one full travel from closed to open, in milliseconds.",
+              "placeholder": "30000",
+              "condition": {
+                "functionBody": "return model.devices && model.devices[arrayIndices] && ['MotorizedHatch'].includes(model.devices[arrayIndices].type);"
+              }
+            },
+            "closeDurationMs": {
+              "type": "integer",
+              "title": "Close Duration (ms)",
+              "description": "How long to energize the close relay for one full travel from open to closed, in milliseconds. Defaults to Open Duration if not set.",
+              "placeholder": "30000",
+              "condition": {
+                "functionBody": "return model.devices && model.devices[arrayIndices] && ['MotorizedHatch'].includes(model.devices[arrayIndices].type);"
               }
             },
             "timeToOpen": {
