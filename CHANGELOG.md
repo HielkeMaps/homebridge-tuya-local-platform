@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/nubisco/homebridge-tuya-local-platform/compare/v1.7.3...v1.8.0) (2026-10-19)
+
+### Features
+
+- expose devices over Matter on Homebridge 2 ([#46](https://github.com/nubisco/homebridge-tuya-local-platform/issues/46)) ([6b8e08b](https://github.com/nubisco/homebridge-tuya-local-platform/commit/6b8e08b2db14a92e9bd101557b9d4ee9f14edd61))
+
 ## [1.7.3](https://github.com/nubisco/homebridge-tuya-local-platform/compare/v1.7.2...v1.7.3) (2026-10-08)
 
 ### Bug Fixes
